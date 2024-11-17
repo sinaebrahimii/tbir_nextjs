@@ -1,7 +1,8 @@
 "use client";
 import SearchForm from "@/components/searchForm";
+import ImageGallery from "@/components/ImageGallery";
 import { useMutation } from "@tanstack/react-query";
-import Image from "next/image";
+import { SkeletonCard } from "@/components/ui/SkeletonCard";
 
 type description = {
   id: number;
@@ -9,17 +10,17 @@ type description = {
   description: string;
   created_at: string;
 };
-type SearchResult = {
+type ImageResponse = {
   url: string;
   id: number;
   created_at: string;
   descriptions: description[];
 };
 
-const serachPhotos = async (searchQ: string): Promise<SearchResult> => {
+const serachPhotos = async (searchQ: string): Promise<ImageResponse[]> => {
   // Perform the mutation logic, e.g., make an API request to update the user
-
-  const response = await fetch(`http://127.0.0.1:8000/photos/${searchQ}`);
+  const qParams = `?search_q=${searchQ}`;
+  const response = await fetch(`http://127.0.0.1:8000/photos`);
 
   if (!response.ok) {
     throw new Error("Failed to update user");
@@ -28,7 +29,7 @@ const serachPhotos = async (searchQ: string): Promise<SearchResult> => {
   return response.json();
 };
 export default function Home() {
-  const mutation = useMutation<SearchResult, Error, string>({
+  const mutation = useMutation<ImageResponse[], Error, string>({
     mutationFn: serachPhotos,
   });
   const handleSearch = (query: string) => {
@@ -37,11 +38,10 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto h-screen flex flex-col justify-center items-center">
+    <div className="container mx-auto  flex flex-col justify-center items-center">
       <SearchForm handleSearch={handleSearch} />
-      {mutation.isSuccess && (
-        <Image src={mutation.data.url} width={500} height={500} alt="image" />
-      )}
+      {mutation.isPending && <SkeletonCard />}
+      {mutation.isSuccess && <ImageGallery images={mutation.data} />}
     </div>
   );
 }

@@ -26,7 +26,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ handleSearch }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="absolute top-0 left-0 right-0 mx-auto md:w-3/6  w-5/6 flex gap-2 justify-center items-center mt-10"
+      className="mx-auto md:w-3/6  w-5/6 flex gap-2 justify-center items-center mt-10"
     >
       <Input
         className={`bg-gray-800  text-white ${
