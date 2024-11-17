@@ -20,7 +20,7 @@ type ImageResponse = {
 const serachPhotos = async (searchQ: string): Promise<ImageResponse[]> => {
   // Perform the mutation logic, e.g., make an API request to update the user
   const qParams = `?search_q=${searchQ}`;
-  const response = await fetch(`https://fastapi.darkube.app/photos${searchQ}`);
+  const response = await fetch(`http://fastapi.darkube.app/photos${qParams}`);
 
   if (!response.ok) {
     throw new Error("Failed to update user");

@@ -14,7 +14,7 @@ type Payload = {
   id: number;
 };
 const postData = async (payload: Payload): Promise<DescResponse> => {
-  const url = "https://fastapi.darkube.app/photos/description";
+  const url = "http://fastapi.darkube.app/photos/description";
   const data = {
     description: payload.desc,
     photo_id: payload.id,
