@@ -11,7 +11,7 @@ import {
 import { DescResponse } from "@/utils/types/types";
 type Payload = {
   desc: string;
-  id: number;
+  id: string;
 };
 const postData = async (payload: Payload): Promise<DescResponse> => {
   const url = "https://fastapi.darkube.app/photos/description";
@@ -42,7 +42,7 @@ type I = {
 };
 const DescriptionForm = ({ id }: { id: string }) => {
   const queryClient = useQueryClient();
-  const mutation = useMutation<DescResponse, Error>({
+  const mutation = useMutation<DescResponse, Error, Payload>({
     mutationFn: postData,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["photo"] });

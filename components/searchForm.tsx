@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import React from "react";
 
 type I = {
-  searchQuery: string;
+  search_q: string;
 };
 
 interface SearchFormProps {
@@ -20,8 +20,8 @@ const SearchForm: React.FC<SearchFormProps> = ({ handleSearch }) => {
     formState: { errors },
   } = useForm<I>();
   const onSubmit: SubmitHandler<I> = (data) => {
-    handleSearch(data.searchQuery);
-    console.log(data.searchQuery);
+    handleSearch(data.search_q);
+    console.log(data.search_q);
   };
   return (
     <form
@@ -30,10 +30,10 @@ const SearchForm: React.FC<SearchFormProps> = ({ handleSearch }) => {
     >
       <Input
         className={`bg-gray-800  text-white ${
-          errors.searchQuery && "border-red-500"
+          errors.search_q && "border-red-500"
         }`}
         placeholder="Search..."
-        {...register("searchQuery", { required: "Enter your search query" })}
+        {...register("search_q", { required: "Enter your search query" })}
       />
 
       <Button variant={"secondary"}>
